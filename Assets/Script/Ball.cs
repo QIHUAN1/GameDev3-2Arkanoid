@@ -24,6 +24,12 @@ public class Ball : MonoBehaviour
            rb.velocity = Vector3.ClampMagnitude(rb.velocity,maxVelo);
         }
 
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log(111);
+            // rb.AddForce(new Vector2(0, 5));
+        }
+
 
         
         if(transform.position.y < minY)
