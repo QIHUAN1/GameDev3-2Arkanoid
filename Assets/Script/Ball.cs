@@ -5,10 +5,15 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public float minY;
-    public float maxVelo = 15f;
+
+    Vector3 lastVelocity;
 
     Rigidbody2D rb;
-    
+
+    private float Normalspeed;
+    [SerializeField]
+    private float Thespeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,16 +23,13 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(rb.velocity.magnitude > maxVelo)
-        {
-           rb.velocity = Vector3.ClampMagnitude(rb.velocity,maxVelo);
-        }
+
+        lastVelocity = rb.velocity;
 
         if(Input.GetButtonDown("Fire1"))
         {
             Debug.Log(111);
-            // rb.AddForce(new Vector2(0, 5));
+            rb.AddForce(new Vector2(0, 300));
         }
 
 
@@ -36,6 +38,12 @@ public class Ball : MonoBehaviour
         {
             ResetBall();
         }
+
+    }
+
+    private void FixedUpdate()
+    {
+        Normalspeed += 0.1f * Time.deltaTime;
     }
 
     void ResetBall ()
@@ -45,6 +53,11 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        Thespeed = Normalspeed + lastVelocity.magnitude;
+        var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+
+        rb.velocity = direction * Mathf.Max(Thespeed, 6f);
         if(collision.gameObject.CompareTag("Block"))
         {
             Destroy(collision.gameObject);
