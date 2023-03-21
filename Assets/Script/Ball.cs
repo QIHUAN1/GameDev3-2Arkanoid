@@ -36,4 +36,12 @@ public class Ball : MonoBehaviour
     {
         //rb.velocity = Vector3.zero;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Block"))
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
