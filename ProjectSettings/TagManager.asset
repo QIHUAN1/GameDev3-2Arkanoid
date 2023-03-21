@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ThePlat
+    uniqueID: 1992857603
+    locked: 0
+  - name: TheBlock
+    uniqueID: 4105217815
+    locked: 0
+  - name: TheBall
+    uniqueID: 1256482883
+    locked: 0
