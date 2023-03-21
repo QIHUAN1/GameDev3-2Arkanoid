@@ -20,6 +20,7 @@ public class ThePlatform : MonoBehaviour
     {
         mainCamera = FindObjectOfType <Camera>();
         thePlatY = this.transform.position.y;
+
         gameObject.transform.position = new Vector3(-1.08f, -4, 0);
     }
 
