@@ -10,7 +10,6 @@ public class Ball : MonoBehaviour
 
     Rigidbody2D rb;
 
-    private float Normalspeed;
     [SerializeField]
     private float Thespeed;
 
@@ -39,12 +38,14 @@ public class Ball : MonoBehaviour
             ResetBall();
         }
 
+        if(Thespeed > 8)
+        {
+            Thespeed = 8;
+        }
+
+
     }
 
-    private void FixedUpdate()
-    {
-        Normalspeed += 0.1f * Time.deltaTime;
-    }
 
     void ResetBall ()
     {
@@ -54,10 +55,10 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        Thespeed = Normalspeed + lastVelocity.magnitude;
+        Thespeed = lastVelocity.magnitude + 0.1f * Time.deltaTime;
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-        rb.velocity = direction * Mathf.Max(Thespeed, 6f);
+        rb.velocity = direction * Mathf.Max(Thespeed, 0.01f);
         if(collision.gameObject.CompareTag("Block"))
         {
             Destroy(collision.gameObject);
