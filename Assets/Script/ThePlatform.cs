@@ -57,9 +57,28 @@ public class ThePlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Capsule"))
+        if (collision.gameObject.CompareTag("BlockRed"))
         {
             Destroy(collision.gameObject);
+            //longer board
+        }
+
+        if (collision.gameObject.CompareTag("BlockBlue"))
+        {
+            Destroy(collision.gameObject);
+            //stay on board
+        }
+
+        if (collision.gameObject.CompareTag("BlockPink"))
+        {
+            Destroy(collision.gameObject);
+            //exit
+        }
+
+        if (collision.gameObject.CompareTag("BlockGreen"))
+        {
+            Destroy(collision.gameObject);
+            //longer board
         }
     }
 }
