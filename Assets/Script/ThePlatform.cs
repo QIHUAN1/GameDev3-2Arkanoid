@@ -19,6 +19,9 @@ public class ThePlatform : MonoBehaviour
     public bool longerBoard;
     public GameObject longBoard;
 
+
+    public GameObject exitGate;
+
     private void Awake()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
@@ -35,6 +38,8 @@ public class ThePlatform : MonoBehaviour
 
         longBoard.SetActive(false);
         longerBoard = false;
+
+        exitGate.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,32 +55,32 @@ public class ThePlatform : MonoBehaviour
     void PlatLimit()
     {
         
-        
-            if (mousePosX > platMoveMax && longBoard == false)
+        if (longerBoard == false)
+        {
+            if (mousePosX > platMoveMax)
             {
                 mousePosX = platMoveMax;
             }
 
-            if (mousePosX < platMoveMin && longBoard == false)
+            if (mousePosX < platMoveMin)
             {
                 mousePosX = platMoveMin;
             }
-        
+        }
 
-      
-        
-            if (mousePosX > platMoveMax && longBoard == true)
+        else if(longerBoard == true)
+        {
+
+            if (mousePosX > 0.86f)
             {
                 mousePosX = 0.86f;
             }
 
-            if (mousePosX < platMoveMin && longBoard == true)
+            if (mousePosX < -3.46f)
             {
                 mousePosX = -3.46f;
             }
-        
-
-
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -85,6 +90,7 @@ public class ThePlatform : MonoBehaviour
             Destroy(collision.gameObject);
             //longer board
 
+            longerBoard = true;
             longBoard.SetActive(true);
             Invoke("ShorterBoard", 60f);
         }
@@ -98,6 +104,7 @@ public class ThePlatform : MonoBehaviour
         if (collision.gameObject.CompareTag("BlockPink"))
         {
             Destroy(collision.gameObject);
+            exitGate.SetActive(true);
             //exit
         }
 
@@ -105,6 +112,9 @@ public class ThePlatform : MonoBehaviour
         {
             Destroy(collision.gameObject);
             //longer board
+            longerBoard = true;
+            longBoard.SetActive(true);
+            Invoke("ShorterBoard", 60f);
         }
     }
 

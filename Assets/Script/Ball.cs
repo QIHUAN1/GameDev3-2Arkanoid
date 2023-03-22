@@ -153,5 +153,11 @@ public class Ball : MonoBehaviour
             Destroy(other.gameObject);
            
         }
+
+        if (other.gameObject.CompareTag("Gate"))
+        {
+            SceneManager.LoadScene(1);
+
+        }
     }
 }

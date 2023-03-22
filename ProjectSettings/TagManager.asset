@@ -11,6 +11,7 @@ TagManager:
   - BlockGreen
   - BlockBlue
   - BlockPink
+  - Gate
   layers:
   - Default
   - TransparentFX
