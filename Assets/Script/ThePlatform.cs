@@ -14,6 +14,13 @@ public class ThePlatform : MonoBehaviour
     [SerializeField]
     private float platMoveMin;
 
+    GameController gameController;
+
+
+    private void Awake()
+    {
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +34,14 @@ public class ThePlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        mousePosX = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0 , 0)).x;
-        PlatLimit();
-        this.transform.position = new Vector3(mousePosX, thePlatY,0);
+        if(gameController.canShoot == true)
+        {
+            mousePosX = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0)).x;
+            PlatLimit();
+            this.transform.position = new Vector3(mousePosX, thePlatY, 0);
+        }
+        
     }
-
 
     void PlatLimit()
     {

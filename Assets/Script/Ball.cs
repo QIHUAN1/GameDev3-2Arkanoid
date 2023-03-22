@@ -13,6 +13,15 @@ public class Ball : MonoBehaviour
     [SerializeField]
     private float Thespeed;
 
+    GameController gameController;
+    StartGame startGame;
+
+    private void Awake()
+    {
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        startGame = GameObject.Find("Canvas").GetComponent<StartGame>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +34,9 @@ public class Ball : MonoBehaviour
 
         lastVelocity = rb.velocity;
 
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && gameController.canShoot == true)
         {
-            Debug.Log(111);
-            rb.AddForce(new Vector2(0, 300));
+            rb.AddForce(new Vector2(0, 170));
         }
 
 
@@ -38,9 +46,9 @@ public class Ball : MonoBehaviour
             ResetBall();
         }
 
-        if(Thespeed > 8)
+        if(Thespeed > 6)
         {
-            Thespeed = 8;
+            Thespeed = 6;
         }
 
 
@@ -49,7 +57,15 @@ public class Ball : MonoBehaviour
 
     void ResetBall ()
     {
-        //rb.velocity = Vector3.zero;
+        bool canReset = true;
+        if(canReset == true)
+        {
+            gameController.playerHp -= 1;
+            gameController.canShoot = false;
+            startGame.Begin();
+            canReset = false;
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -58,7 +74,7 @@ public class Ball : MonoBehaviour
         Thespeed = lastVelocity.magnitude + 0.1f * Time.deltaTime;
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-        rb.velocity = direction * Mathf.Max(Thespeed, 0.01f);
+        rb.velocity = direction * Mathf.Max(Thespeed, 0.1f);
         if(collision.gameObject.CompareTag("Block"))
         {
             Destroy(collision.gameObject);
