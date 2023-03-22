@@ -16,6 +16,8 @@ public class ThePlatform : MonoBehaviour
 
     GameController gameController;
 
+    public bool longerBoard;
+    public GameObject longBoard;
 
     private void Awake()
     {
@@ -29,6 +31,10 @@ public class ThePlatform : MonoBehaviour
         thePlatY = this.transform.position.y;
 
         gameObject.transform.position = new Vector3(-1.08f, -4, 0);
+
+
+        longBoard.SetActive(false);
+        longerBoard = false;
     }
 
     // Update is called once per frame
@@ -43,15 +49,32 @@ public class ThePlatform : MonoBehaviour
     }
     void PlatLimit()
     {
-        if(mousePosX > platMoveMax)
-        {
-            mousePosX = platMoveMax;
-        }
+        
+        
+            if (mousePosX > platMoveMax && longBoard == false)
+            {
+                mousePosX = platMoveMax;
+            }
 
-        if (mousePosX < platMoveMin)
-        {
-            mousePosX = platMoveMin;
-        }
+            if (mousePosX < platMoveMin && longBoard == false)
+            {
+                mousePosX = platMoveMin;
+            }
+        
+
+      
+        
+            if (mousePosX > platMoveMax && longBoard == true)
+            {
+                mousePosX = 0.86f;
+            }
+
+            if (mousePosX < platMoveMin && longBoard == true)
+            {
+                mousePosX = -3.46f;
+            }
+        
+
 
     }
 
@@ -61,6 +84,9 @@ public class ThePlatform : MonoBehaviour
         {
             Destroy(collision.gameObject);
             //longer board
+
+            longBoard.SetActive(true);
+            Invoke("ShorterBoard", 60f);
         }
 
         if (collision.gameObject.CompareTag("BlockBlue"))
@@ -80,5 +106,11 @@ public class ThePlatform : MonoBehaviour
             Destroy(collision.gameObject);
             //longer board
         }
+    }
+
+    public void ShorterBoard()
+    {
+        longBoard.SetActive(false);
+        longerBoard = false;
     }
 }
