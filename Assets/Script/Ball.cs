@@ -16,17 +16,22 @@ public class Ball : MonoBehaviour
 
     GameController gameController;
     StartGame startGame;
+    ThePlatform thePlatform;
+
+    public bool absorbingMode;
 
     private void Awake()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         startGame = GameObject.Find("Canvas").GetComponent<StartGame>();
+        thePlatform = GameObject.Find("Platform").GetComponent<ThePlatform>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        absorbingMode = false;
     }
 
     // Update is called once per frame
@@ -42,8 +47,7 @@ public class Ball : MonoBehaviour
             gameController.canShoot = false;
         }
 
-
-        if(transform.position.y < minY)
+        if (transform.position.y < minY)
         {
 
                 ResetBall();
@@ -54,6 +58,23 @@ public class Ball : MonoBehaviour
         {
             Thespeed = 6;
         }
+
+        if(absorbingMode == true)
+        {
+            gameObject.transform.position = new Vector3(GameObject.Find("Platform").transform.position.x, -3.6f, 0);
+        }
+
+        if (absorbingMode == true && Input.GetButtonDown("Fire1"))
+        {
+            absorbingMode = false;
+            gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            rb.AddForce(new Vector2(0, 70));
+
+        }
+
+
+
+
 
 
     }
@@ -83,11 +104,25 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if(thePlatform.absorbBall == false)
+        {
+            Thespeed = lastVelocity.magnitude + 0.1f * Time.deltaTime;
+            var direction = Vector3.Reflect(lastVelocity.normalized, other.contacts[0].normal);
 
-        Thespeed = lastVelocity.magnitude + 0.1f * Time.deltaTime;
-        var direction = Vector3.Reflect(lastVelocity.normalized, other.contacts[0].normal);
+            rb.velocity = direction * Mathf.Max(Thespeed, 0.1f);
+        }
 
-        rb.velocity = direction * Mathf.Max(Thespeed, 0.1f);
+        else if(thePlatform.absorbBall == true)
+        {
+            Thespeed = lastVelocity.magnitude + 0f * Time.deltaTime;
+            var direction = Vector3.Reflect(lastVelocity.normalized, other.contacts[0].normal);
+
+            rb.velocity = direction * Mathf.Max(Thespeed, 0f);
+        }
+            
+        
+
+       
         
         if(other.gameObject.CompareTag("BlockRed"))
         {
@@ -157,6 +192,19 @@ public class Ball : MonoBehaviour
         if (other.gameObject.CompareTag("Gate"))
         {
             SceneManager.LoadScene(1);
+
+        }
+
+        if (other.gameObject.CompareTag("Plat")&& thePlatform.absorbBall == true)
+        {
+            absorbingMode = true;
+            Debug.Log(111);
+           
+        }
+
+        if (thePlatform.absorbBall == false)
+        {
+            absorbingMode = false;
 
         }
     }

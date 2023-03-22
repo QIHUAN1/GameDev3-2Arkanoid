@@ -22681,7 +22681,7 @@ GameObject:
   - component: {fileID: 1696818517}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Plat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22723,6 +22723,7 @@ MonoBehaviour:
   longerBoard: 0
   longBoard: {fileID: 272405607}
   exitGate: {fileID: 1289958882}
+  absorbBall: 1
 --- !u!212 &1696818516
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28063,7 +28064,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2078267167}
-  - component: {fileID: 2078267168}
   m_Layer: 0
   m_Name: FirstFloor
   m_TagString: Untagged
@@ -28097,30 +28097,6 @@ Transform:
   m_Father: {fileID: 1546124787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2078267168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078267166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7bd0ebb8ed702445978a3290f3a7b4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allBricks:
-  - {fileID: 1377693969}
-  - {fileID: 1571773958}
-  - {fileID: 679784005}
-  - {fileID: 1789092576}
-  - {fileID: 522758721}
-  - {fileID: 2018544365}
-  - {fileID: 1598268150}
-  - {fileID: 404251392}
-  - {fileID: 609395723}
-  - {fileID: 184909227}
-  - {fileID: 1200752441}
 --- !u!1 &2087989313
 GameObject:
   m_ObjectHideFlags: 0
@@ -28681,6 +28657,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 40efa06ef5d274d4db0ffdff80b13959, type: 2}
+    - target: {fileID: 5986538655827401098, guid: 87a386735a2b8444cb50c94dd6c90506, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5986538655827401099, guid: 87a386735a2b8444cb50c94dd6c90506, type: 3}
       propertyPath: m_Mass
       value: 1

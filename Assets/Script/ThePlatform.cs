@@ -22,6 +22,9 @@ public class ThePlatform : MonoBehaviour
 
     public GameObject exitGate;
 
+
+    public bool absorbBall;
+
     private void Awake()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
@@ -40,6 +43,8 @@ public class ThePlatform : MonoBehaviour
         longerBoard = false;
 
         exitGate.SetActive(false);
+
+        absorbBall = false;
     }
 
     // Update is called once per frame
@@ -99,13 +104,15 @@ public class ThePlatform : MonoBehaviour
         {
             Destroy(collision.gameObject);
             //stay on board
+            absorbBall = true;
+            Invoke("StopAbsorb", 20f);
         }
 
         if (collision.gameObject.CompareTag("BlockPink"))
         {
             Destroy(collision.gameObject);
-            exitGate.SetActive(true);
             //exit
+            exitGate.SetActive(true);
         }
 
         if (collision.gameObject.CompareTag("BlockGreen"))
@@ -122,5 +129,10 @@ public class ThePlatform : MonoBehaviour
     {
         longBoard.SetActive(false);
         longerBoard = false;
+    }
+
+    public void StopAbsorb()
+    {
+        absorbBall = false;
     }
 }

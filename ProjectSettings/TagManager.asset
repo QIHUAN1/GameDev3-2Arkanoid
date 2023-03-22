@@ -12,6 +12,7 @@ TagManager:
   - BlockBlue
   - BlockPink
   - Gate
+  - Plat
   layers:
   - Default
   - TransparentFX
