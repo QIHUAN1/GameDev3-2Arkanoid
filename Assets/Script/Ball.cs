@@ -36,14 +36,16 @@ public class Ball : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1") && gameController.canShoot == true)
         {
+            gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             rb.AddForce(new Vector2(0, 170));
         }
 
 
-        
         if(transform.position.y < minY)
         {
-            ResetBall();
+
+                ResetBall();
+
         }
 
         if(Thespeed > 6)
@@ -57,15 +59,12 @@ public class Ball : MonoBehaviour
 
     void ResetBall ()
     {
-        bool canReset = true;
-        if(canReset == true)
-        {
-            gameController.playerHp -= 1;
-            gameController.canShoot = false;
-            startGame.Begin();
-            canReset = false;
-        }
+        gameObject.transform.position = new Vector3(-1.377f, -3.537f,0);
+        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
 
+        gameController.playerHp -= 1;
+        gameController.canShoot = false;
+        startGame.Begin();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
