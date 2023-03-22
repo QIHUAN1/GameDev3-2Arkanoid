@@ -8,6 +8,14 @@ public class Enemy : MonoBehaviour
 
     Rigidbody2D rb;
 
+    GameController gameController;
+
+    private void Awake()
+    {
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+       
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +27,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         lastVelocity = rb.velocity;
+
+        if (transform.position.y < -5)
+        {
+            gameController.playerHp -= 1;
+
+            Destroy(gameObject);
+
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

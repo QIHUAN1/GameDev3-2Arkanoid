@@ -16,7 +16,14 @@ public class GameController : MonoBehaviour
 
     public TMPro.TextMeshProUGUI playerHPtext;
     public int playerHp;
-    
+
+    [SerializeField]
+    private GameObject EnemyPrefeb;
+
+    public GameObject Target;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,5 +50,10 @@ public class GameController : MonoBehaviour
             SceneManager.LoadScene(1);
         }
     }
-  
+
+    public void SpawnIt(GameObject enemy)
+    {
+        GameObject newEnemy = Instantiate(enemy, new Vector3(Target.transform.position.x, Target.transform.position.y, 0), Quaternion.identity);
+    }
+
 }
