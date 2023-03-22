@@ -49,11 +49,18 @@ public class GameController : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         }
+
+        if(Brick == 60)
+        {
+            SpawnIt();
+            
+        }
     }
 
-    public void SpawnIt(GameObject enemy)
+    public void SpawnIt()
     {
-        GameObject newEnemy = Instantiate(enemy, new Vector3(Target.transform.position.x, Target.transform.position.y, 0), Quaternion.identity);
+        GameObject newEnemy = Instantiate(EnemyPrefeb, new Vector3(Target.transform.position.x, Target.transform.position.y, 0), Quaternion.identity);
+        
     }
 
 }

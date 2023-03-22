@@ -39,6 +39,7 @@ public class Ball : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             rb.AddForce(new Vector2(0, 170));
+            gameController.canShoot = false;
         }
 
 
@@ -66,7 +67,6 @@ public class Ball : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
 
             gameController.playerHp -= 1;
-            gameController.canShoot = false;
             startGame.Begin();
         }
         
