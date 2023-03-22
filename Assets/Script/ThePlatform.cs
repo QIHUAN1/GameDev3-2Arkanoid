@@ -100,7 +100,7 @@ public class ThePlatform : MonoBehaviour
             Invoke("ShorterBoard", 60f);
         }
 
-        if (collision.gameObject.CompareTag("BlockBlue"))
+        if (collision.gameObject.CompareTag("BlockGreen"))
         {
             Destroy(collision.gameObject);
             //stay on board
@@ -110,18 +110,21 @@ public class ThePlatform : MonoBehaviour
 
         if (collision.gameObject.CompareTag("BlockPink"))
         {
-            Destroy(collision.gameObject);
-            //exit
-            exitGate.SetActive(true);
-        }
 
-        if (collision.gameObject.CompareTag("BlockGreen"))
-        {
             Destroy(collision.gameObject);
             //longer board
             longerBoard = true;
             longBoard.SetActive(true);
             Invoke("ShorterBoard", 60f);
+
+        }
+
+        if (collision.gameObject.CompareTag("BlockBlue"))
+        {
+
+            Destroy(collision.gameObject);
+            //exit
+            exitGate.SetActive(true);
         }
     }
 
