@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
@@ -59,12 +60,20 @@ public class Ball : MonoBehaviour
 
     void ResetBall ()
     {
-        gameObject.transform.position = new Vector3(-1.377f, -3.537f,0);
-        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+       if(gameController.playerHp > 0 )
+        {
+            gameObject.transform.position = new Vector3(-1.377f, -3.537f, 0);
+            gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
 
-        gameController.playerHp -= 1;
-        gameController.canShoot = false;
-        startGame.Begin();
+            gameController.playerHp -= 1;
+            gameController.canShoot = false;
+            startGame.Begin();
+        }
+        
+        if(gameController.playerHp <= 0 )
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -77,6 +86,14 @@ public class Ball : MonoBehaviour
         if(collision.gameObject.CompareTag("Block"))
         {
             Destroy(collision.gameObject);
+            gameController.playerScore += 100;
+            gameController.Brick -= 1;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(collision.gameObject);
+           
         }
     }
 }
