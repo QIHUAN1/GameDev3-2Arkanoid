@@ -76,6 +76,11 @@ public class Ball : MonoBehaviour
         }
     }
 
+    public GameObject redPowerUp;
+    public GameObject bluePowerUp;
+    public GameObject pinkPowerUp;
+    public GameObject greenPowerUp;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -83,11 +88,61 @@ public class Ball : MonoBehaviour
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
         rb.velocity = direction * Mathf.Max(Thespeed, 0.1f);
-        if(collision.gameObject.CompareTag("Block"))
+        
+        if(collision.gameObject.CompareTag("BlockRed"))
         {
             Destroy(collision.gameObject);
             gameController.playerScore += 100;
             gameController.Brick -= 1;
+
+           int Spawn1 =  Random.Range(0, 3);
+
+            if(Spawn1 == 1)
+            {
+                Instantiate(redPowerUp,collision.transform);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("BlockBlue"))
+        {
+            Destroy(collision.gameObject);
+            gameController.playerScore += 100;
+            gameController.Brick -= 1;
+
+            int Spawn1 = Random.Range(0, 3);
+
+            if (Spawn1 == 1)
+            {
+                Instantiate(bluePowerUp,collision.transform);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("BlockPink"))
+        {
+            Destroy(collision.gameObject);
+            gameController.playerScore += 100;
+            gameController.Brick -= 1;
+
+            int Spawn1 = Random.Range(0, 3);
+
+            if (Spawn1 == 1)
+            {
+                Instantiate(pinkPowerUp, collision.transform);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("BlockGreen"))
+        {
+            Destroy(collision.gameObject);
+            gameController.playerScore += 100;
+            gameController.Brick -= 1;
+
+            int Spawn1 = Random.Range(0, 3);
+
+            if (Spawn1 == 1)
+            {
+                Instantiate(greenPowerUp, collision.transform);
+            }
         }
 
         if (collision.gameObject.CompareTag("Enemy"))

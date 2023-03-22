@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Block
+  - Enemy
+  - Capsule
+  - BlockRed
+  - BlockGreen
+  - BlockBlue
+  - BlockPink
   layers:
   - Default
   - TransparentFX

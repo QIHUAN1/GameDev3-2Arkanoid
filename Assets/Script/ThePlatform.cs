@@ -34,15 +34,13 @@ public class ThePlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameController.canShoot == true)
-        {
+
             mousePosX = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0)).x;
             PlatLimit();
             this.transform.position = new Vector3(mousePosX, thePlatY, 0);
-        }
+        
         
     }
-
     void PlatLimit()
     {
         if(mousePosX > platMoveMax)
@@ -55,5 +53,13 @@ public class ThePlatform : MonoBehaviour
             mousePosX = platMoveMin;
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Capsule"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

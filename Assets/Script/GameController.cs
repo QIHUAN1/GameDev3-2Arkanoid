@@ -22,17 +22,21 @@ public class GameController : MonoBehaviour
 
     public GameObject Target;
 
-
+    AudioSource audiosource;
 
     // Start is called before the first frame update
     void Start()
     {
+        audiosource = GetComponent<AudioSource>();
+
         canShoot = false;
         playerHp = 3;
 
         playerScore = 0;
 
         Brick = 64;
+
+        Invoke("PlaySound", 4.5f);
     }
 
     // Update is called once per frame
@@ -48,19 +52,13 @@ public class GameController : MonoBehaviour
         if(Brick == 0)
         {
             SceneManager.LoadScene(1);
-        }
-
-        if(Brick == 60)
-        {
-            SpawnIt();
-            
-        }
+        } 
     }
 
-    public void SpawnIt()
+    void PlaySound()
     {
-        GameObject newEnemy = Instantiate(EnemyPrefeb, new Vector3(Target.transform.position.x, Target.transform.position.y, 0), Quaternion.identity);
-        
+        GetComponent<AudioSource>().Play();
     }
+
 
 }
