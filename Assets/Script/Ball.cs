@@ -81,73 +81,76 @@ public class Ball : MonoBehaviour
     public GameObject pinkPowerUp;
     public GameObject greenPowerUp;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
 
         Thespeed = lastVelocity.magnitude + 0.1f * Time.deltaTime;
-        var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+        var direction = Vector3.Reflect(lastVelocity.normalized, other.contacts[0].normal);
 
         rb.velocity = direction * Mathf.Max(Thespeed, 0.1f);
         
-        if(collision.gameObject.CompareTag("BlockRed"))
+        if(other.gameObject.CompareTag("BlockRed"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             gameController.playerScore += 100;
             gameController.Brick -= 1;
 
-           int Spawn1 =  Random.Range(0, 3);
+           int Spawn1 =  Random.Range(0, 8);
 
             if(Spawn1 == 1)
             {
-                Instantiate(redPowerUp,collision.transform);
+                
+                Instantiate(redPowerUp,new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y,0),Quaternion.identity,transform);
             }
+
+            Destroy(other.gameObject);
         }
 
-        if (collision.gameObject.CompareTag("BlockBlue"))
+        if (other.gameObject.CompareTag("BlockBlue"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             gameController.playerScore += 100;
             gameController.Brick -= 1;
 
-            int Spawn1 = Random.Range(0, 3);
+            int Spawn1 = Random.Range(0, 8);
 
             if (Spawn1 == 1)
             {
-                Instantiate(bluePowerUp,collision.transform);
+                Instantiate(bluePowerUp, new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, 0), Quaternion.identity, transform);
             }
         }
 
-        if (collision.gameObject.CompareTag("BlockPink"))
+        if (other.gameObject.CompareTag("BlockPink"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             gameController.playerScore += 100;
             gameController.Brick -= 1;
 
-            int Spawn1 = Random.Range(0, 3);
+            int Spawn1 = Random.Range(0, 8);
 
             if (Spawn1 == 1)
             {
-                Instantiate(pinkPowerUp, collision.transform);
+                Instantiate(pinkPowerUp, new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, 0), Quaternion.identity, transform);
             }
         }
 
-        if (collision.gameObject.CompareTag("BlockGreen"))
+        if (other.gameObject.CompareTag("BlockGreen"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             gameController.playerScore += 100;
             gameController.Brick -= 1;
 
-            int Spawn1 = Random.Range(0, 3);
+            int Spawn1 = Random.Range(0, 8);
 
             if (Spawn1 == 1)
             {
-                Instantiate(greenPowerUp, collision.transform);
+                Instantiate(greenPowerUp, new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, 0), Quaternion.identity, transform);
             }
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
            
         }
     }
